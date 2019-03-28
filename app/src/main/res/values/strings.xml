@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DareGame</string>
+    <string name="default_indicator">BallScaleRippleMultipleIndicator</string>
+    <string name="list_transition_name">listTransitionName</string>
+</resources>

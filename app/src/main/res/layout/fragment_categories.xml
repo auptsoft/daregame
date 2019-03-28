@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="presenter"
+            type="weplay.auptsoft.daregame.presenters.CategoriesPresenter" />
+    </data>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:visibility="@{presenter.loading}">
+            <com.github.ybq.android.spinkit.SpinKitView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_margin="20dp"
+                android:layout_centerInParent="true"
+                app:SpinKit_Color="@color/colorPrimary"
+                app:SpinKit_Style="MultiplePulse"/>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="@{presenter.loading}">
+            <android.support.design.widget.TabLayout
+                android:id="@+id/categories_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                app:tabMode="scrollable">
+            </android.support.design.widget.TabLayout>
+            <!--
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.gigamole.navigationtabstrip.NavigationTabStrip
+                    android:id="@+id/categories_tabs_strip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:nts_color="#444"
+                    app:nts_active_color="@color/colorPrimary"
+                    app:nts_type="point"
+
+                    />
+            </HorizontalScrollView> -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/categories_view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </android.support.v4.view.ViewPager>
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>
