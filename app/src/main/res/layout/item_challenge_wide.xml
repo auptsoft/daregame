@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="item"
             type="weplay.auptsoft.daregame.view_models.ChallengeViewModel" />
@@ -12,124 +14,168 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
-        android:onClick="@{()->item.viewDetails(item.challenge)}">
+        android:layout_marginBottom="8dp"
+        android:onClick="@{()->item.viewDetails(item.challenge)}"
+        android:transitionName="@string/challenge_transition_1"
+        >
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="5dp"
+            android:background="#fff">
 
             <ImageView
                 android:id="@+id/item_simple_image"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:layout_margin="2dp"
+                android:layout_height="0dp"
+                android:layout_margin="5dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/nature_004"
-                android:visibility="visible"/>
-            
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_margin="4dp">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/item_simple_text_one"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:text="@{item.challenge.title}"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/item_simple_text_two"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:text="@{item.challenge.category}"
-                        android:textIsSelectable="true" />
-                </LinearLayout>
+                app:layout_constraintDimensionRatio="4:3"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@{item.challenge}"
+                />
+
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:padding="5dp"
+                app:layout_constraintTop_toTopOf="@id/item_simple_image"
+                app:layout_constraintBottom_toBottomOf="@id/item_simple_image"
+                app:layout_constraintLeft_toLeftOf="@id/item_simple_image"
+                app:layout_constraintRight_toRightOf="@id/item_simple_image"
+                android:background="#44000000"
+                android:src="@drawable/ic_play_circle_outline_black_24dp"
+                android:scaleType="fitXY"
+                android:visibility="@{item.videoIconVisible}"
+                android:onClick="@{()->item.viewDetails(item.challenge)}"
+                />
+
+            <TextView
+                android:id="@+id/item_simple_text_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="@{item.challenge.title}"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_simple_image" />
+
+            <TextView
+                android:id="@+id/item_simple_text_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="@{item.challenge.category.title}"
+                android:textIsSelectable="true"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_simple_text_one" />
+
+
+            <TextView
+                android:id="@+id/challenge_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@{`$`+item.challenge.price}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="23sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_simple_text_one" />
+
+            <com.github.florent37.shapeofview.shapes.CutCornerView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_margin="6dp"
+                android:elevation="5dp"
+                android:gravity="center"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/challenge_price"
+                app:shape_cutCorner_bottomLeftSize="12dp"
+                app:shape_cutCorner_bottomRightSize="12dp"
+                app:shape_cutCorner_topLeftSize="12dp"
+                app:shape_cutCorner_topRightSize="12dp"
+                >
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical"
-                    android:gravity="center">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="23sp"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:text="@{item.printablePrice}"/>
-                    <android.support.v7.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        app:cardCornerRadius="10dp">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="6dp"
-                            android:gravity="center"
-                            android:background="@drawable/green_gradient">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="0dp"
-                                android:textStyle="bold"
-                                android:text="FREE ATTEMPT"/>
-                        </LinearLayout>
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
 
-                    </android.support.v7.widget.CardView>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/user_details"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="username"/>
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_person_outline_black_24dp"
+                        android:layout_margin="0dp"
+                        android:text="@{``+item.challenge.free_attempt}"
+                        android:textColor="#fff"
+                        android:textStyle="italic"
                         />
                 </LinearLayout>
+            </com.github.florent37.shapeofview.shapes.CutCornerView>
 
-                    <android.support.v7.widget.CardView
+
+            <ImageView
+                android:id="@+id/challenge_profile_pic"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_simple_text_one"
+                android:tag="@{item.challenge.challenger.profile_picture_url}"
+                />
+
+            <TextView
+                android:id="@+id/challenge_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                app:layout_constraintTop_toBottomOf="@id/item_simple_text_one"
+                app:layout_constraintRight_toLeftOf="@id/challenge_profile_pic"
+                android:text="@{item.challenge.challenger.username}" />
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                app:layout_constraintTop_toBottomOf="@id/challenge_profile_pic"
+                app:layout_constraintRight_toRightOf="@id/challenge_profile_pic"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:layout_marginBottom="3dp">
+
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        app:cardCornerRadius="5dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_margin="5dp"
-                        >
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="5dp"
-                            android:gravity="center">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="20"
-                                />
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/ic_favorite_border_black_24dp"/>
-                        </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:text="@{``+item.challenge.likes.size()}" />
 
-                    </android.support.v7.widget.CardView>
-            </RelativeLayout>
-        </LinearLayout>
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:rotation="180"
+                        android:scaleY="-1"
+                        android:src="@drawable/ic_reply_all_black_24dp" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 </layout>

@@ -48,7 +48,15 @@ public class CategoriesFragment extends Fragment {
 
         View view = binding.getRoot();
 
-        initializeTest();
+        //initializeTest();
+        initialize();
+
+        binding.categoriesRefreshBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                initialize();
+            }
+        });
 
         return view;
     }
@@ -60,15 +68,17 @@ public class CategoriesFragment extends Fragment {
     }
 
     public void initialize() {
+        binding.getPresenter().setLoading(true);
+        binding.categoriesFailedView.setVisibility(View.GONE);
         ArrayList<RESTUtil.SearchQueryItem> searchQueryItems = new ArrayList<>();
-        searchQueryItems.add(new RESTUtil.SearchQueryItem("deleted_at", "=", "null"));
-        RESTUtil.search(AppState.BASE_URL, AppState.INITIAL_PATH + "/search", searchQueryItems, new Callback<ResponseBody>() {
+        searchQueryItems.add(new RESTUtil.SearchQueryItem("deleted_at", "=", null));
+        RESTUtil.search(AppState.BASE_URL, AppState.INITIAL_PATH + "/search/categories", searchQueryItems, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.message().equals("OK")) {
                     try {
                         String responseString = response.body().string();
-                        Type type = new TypeToken<GeneralRequest<List<Category>>>(){}.getType();
+                        Type type = new TypeToken<GeneralResponse<List<Category>>>(){}.getType();
                         GeneralResponse<List<Category>> categoryGeneralResponse = new Gson().fromJson(responseString, type);
                         List<Category> categories = categoryGeneralResponse.getData();
 
@@ -79,33 +89,43 @@ public class CategoriesFragment extends Fragment {
                         binding.categoriesTabs.setupWithViewPager(binding.categoriesViewPager);
                         binding.getPresenter().setLoading(false);
                     } catch (Exception e) {
-                        Toasty.warning(getContext(), e.getMessage()).show();
+                        if(getContext() != null) Toasty.warning(getContext(), e.getMessage()).show();
+                        binding.getPresenter().setLoading(false);
+                        binding.getPresenter().setFailedText("Error occured while connecting. \n TRY AGAIN");
+                        binding.categoriesFailedView.setVisibility(View.VISIBLE);
                     }
                 } else {
-                    Toasty.warning(getContext(), response.message()).show();
+                    if(getContext() != null)  Toasty.warning(getContext(), response.message()).show();
+                    binding.getPresenter().setLoading(false);
+                    binding.getPresenter().setFailedText("Could not connect to the internet. \n TRY AGAIN");
+                    binding.categoriesFailedView.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toasty.error(getContext(), t.getMessage()).show();
+                if(getContext() != null) Toasty.error(getContext(), t.getMessage()).show();
+                binding.getPresenter().setLoading(false);
+                binding.getPresenter().setFailedText("Could not connect to the internet. \n TRY AGAIN");
+                binding.categoriesFailedView.setVisibility(View.VISIBLE);
             }
         });
     }
 
     void initializeTest() {
-        ArrayList<Category> categories = new ArrayList<>();
-        categories.add(new Category("Sport", "About sport here"));
-        categories.add(new Category("Romance", "About romance here"));
-        categories.add(new Category("Food", "About food here"));
-        categories.add(new Category("Technology", "About technology here"));
-        categories.add(new Category("Academic", "About academic here"));
-        categories.add(new Category("Games", "About games here"));
+        AppState.categories = new ArrayList<>();
+        AppState.categories.add(new Category("Sport", "About sport here"));
+        AppState.categories.add(new Category("Romance", "About romance here"));
+        AppState.categories.add(new Category("Food", "About food here"));
+        AppState.categories.add(new Category("Technology", "About technology here"));
+        AppState.categories.add(new Category("Academic", "About academic here"));
+        AppState.categories.add(new Category("Games", "About games here"));
 
 
         CategoriesViewpagerAdapter categoriesViewpagerAdapter =
                 new CategoriesViewpagerAdapter(/*((AppCompatActivity)getActivity()).getSupportFragmentManager() */
-                        getChildFragmentManager() , categories);
+                        getChildFragmentManager() , AppState.categories);
+
         binding.categoriesViewPager.setAdapter(categoriesViewpagerAdapter);
         //binding.categoriesTabsStrip.setTitles(getStringArray(Category.getTitles(categories)));
         //binding.categoriesTabsStrip.setViewPager(binding.categoriesViewPager);

@@ -1,4 +1,4 @@
-package weplay.auptsoft.daregame.view_models;
+package weplay.auptsoft.daregame.presenters;
 
 import android.app.Activity;
 import android.databinding.BaseObservable;
@@ -26,15 +26,14 @@ import weplay.auptsoft.daregame.services.response.GeneralResponse;
  * Created by Andrew on 20.3.19.
  */
 
-public class ProfileViewModel extends BaseObservable {
+public class ProfileFragmentPresenter extends BaseObservable {
     private Activity activity;
     private User user;
     private UserDetails userDetails;
 
-    public ProfileViewModel(Activity activity, User user, UserDetails userDetails) {
+    public ProfileFragmentPresenter(Activity activity, User user) {
         this.activity = activity;
         this.user = user;
-        this.userDetails = userDetails;
     }
 
     public void retrieveUser() {

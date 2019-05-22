@@ -18,7 +18,7 @@ import com.nightonke.boommenu.BoomButtons.BoomButton;
 import com.nightonke.boommenu.BoomButtons.BoomButtonBuilder;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
-import com.shashank.sony.fancytoastlib.FancyToast;
+//import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
 

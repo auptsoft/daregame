@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <data>
+        <variable
+            name="presenter"
+            type="weplay.auptsoft.daregame.presenters.PostChallengeActivityPresenter" />
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/activity_post_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/colorPrimary"
+            app:navigationIcon="@drawable/ic_chevron_left_black_24dp"
+            app:title="Create New Challenge"
+            app:titleTextColor="#fff"
+            android:elevation="8dp"
+            />
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/post_challenge_frame_scroll_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:paddingBottom="50dp"
+            app:layout_constraintTop_toBottomOf="@id/activity_post_toolbar">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/post_challenge_frame_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </FrameLayout>
+                <com.github.florent37.shapeofview.shapes.CutCornerView
+                    android:id="@+id/upload_media"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    app:shape_cutCorner_topRightSize="20dp"
+                    app:shape_cutCorner_bottomRightSize="20dp"
+                    app:shape_cutCorner_bottomLeftSize="5dp"
+                    app:shape_cutCorner_topLeftSize="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:elevation="10dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Upload Media"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="#fff"
+                            android:paddingRight="20dp"
+                            android:paddingLeft="10dp"
+                            android:layout_gravity="center"/>
+                    </LinearLayout>
+                </com.github.florent37.shapeofview.shapes.CutCornerView>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+        <FrameLayout
+            android:id="@+id/post_challenge_frame_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/activity_post_toolbar"
+            >
+        </FrameLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

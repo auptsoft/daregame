@@ -15,6 +15,7 @@ import weplay.auptsoft.daregame.BR;
 
 public class CategoriesPresenter extends BaseObservable {
     private boolean loading;
+    private String failedText;
 
     public CategoriesPresenter(boolean loading) {
         this.loading = loading;
@@ -38,5 +39,15 @@ public class CategoriesPresenter extends BaseObservable {
     @BindingAdapter("android:visibility")
     public static void setLoading(LinearLayout mainView, boolean loading) {
         mainView.setVisibility(!loading ? View.VISIBLE : View.GONE);
+    }
+
+    @Bindable
+    public String getFailedText() {
+        return failedText;
+    }
+
+    public void setFailedText(String failedText) {
+        this.failedText = failedText;
+        notifyPropertyChanged(BR.failedText);
     }
 }

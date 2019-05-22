@@ -2,4 +2,6 @@
     <string name="app_name">DareGame</string>
     <string name="default_indicator">BallScaleRippleMultipleIndicator</string>
     <string name="list_transition_name">listTransitionName</string>
+    <string name="challenge_transition_1">challengeTransition1</string>
+    <string name="challenge_description_sample">text text text text text text text text text text text text text</string>
 </resources>

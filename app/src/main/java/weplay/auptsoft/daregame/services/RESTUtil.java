@@ -30,7 +30,7 @@ public class RESTUtil {
     public static class SearchQueryItem {
         private String column;
         private String operator;
-        private String value;
+        private Object value;
 
         public SearchQueryItem(String column, String operator, String value) {
             this.column = column;
@@ -54,11 +54,11 @@ public class RESTUtil {
             this.operator = operator;
         }
 
-        public String getValue() {
+        public Object getValue() {
             return value;
         }
 
-        public void setValue(String value) {
+        public void setValue(Object value) {
             this.value = value;
         }
     }
@@ -126,22 +126,29 @@ public class RESTUtil {
     }
 
 
-    public static <T> void uploadMedia(String url, String pathToFile, T data,  Callback<GeneralResponse<String>> responseCallback) {
+    public static <T> void uploadMedia(String url, String urlPath, String pathToFile, String mediaType, T data,   Callback<GeneralResponse<String>> responseCallback) {
         File mediaFile = new File(pathToFile);
-        RequestBody mediaBody = RequestBody.create(MediaType.parse("video/*"), mediaFile);
+        RequestBody mediaBody = RequestBody.create(MediaType.parse(mediaType+"/*"), mediaFile);
         MultipartBody.Part mediaPart = MultipartBody.Part.createFormData("media_file", mediaFile.getName(), mediaBody);
 
         Gson gson = new GsonBuilder().create();
         String jsonString = gson.toJson(data);
         MultipartBody.Part dataString = MultipartBody.Part.createFormData("data", jsonString);
 
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .build();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         MediaInterface mediaInterface = retrofit.create(MediaInterface.class);
-        Call<GeneralResponse<String>> serverCom = mediaInterface.uploadVideoToServer("upload", mediaPart, dataString, getAccessKey());
+        Call<GeneralResponse<String>> serverCom = mediaInterface.uploadMediaToServer(urlPath, mediaPart, dataString, getAccessKey());
 
         serverCom.enqueue(responseCallback);
     }
@@ -151,10 +158,19 @@ public class RESTUtil {
         String jsonString = gson.toJson(data);
         MultipartBody.Part dataPart = MultipartBody.Part.createFormData("data", jsonString);
 
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .build();
+
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
                 .build();
+
         SearchInterface searchInterface = retrofit.create(SearchInterface.class);
         Call<ResponseBody> generalResponseCall = searchInterface.post(path, dataPart, getAccessKey());
         generalResponseCall.enqueue(responseCallback);

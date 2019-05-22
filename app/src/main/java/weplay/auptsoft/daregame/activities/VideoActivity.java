@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.wang.avi.AVLoadingIndicatorView;
 import com.yovenny.videocompress.MediaController;
 
 import org.json.JSONException;
@@ -40,6 +39,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import weplay.auptsoft.daregame.AppState;
 import weplay.auptsoft.daregame.R;
 import weplay.auptsoft.daregame.databinding.ActivityVideoBinding;
 import weplay.auptsoft.daregame.models.Media;
@@ -87,7 +87,7 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
                         Toast.makeText(getBaseContext(), videoFilePath+"....... "+getFileDestinationPath(), Toast.LENGTH_LONG).show();
                         activityVideoBinding.record.setText(videoFilePath);
                         activityVideoBinding.upload.setText(getFileDestinationPath());
-                        //uploadVideoToServer(compressedOutputPath);
+                        //uploadMediaToServer(compressedOutputPath);
                         uploadMediaToServer(compressedOutputPath);
                     }
 
@@ -203,7 +203,7 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
         File mediaFile = new File(pathToMediaFile);
         Media media = new Media(pathToMediaFile, "Image From Android",
                 "video", "Description of video", mediaFile.getName(), 1,  "challenge");
-        RESTUtil.uploadMedia(SERVER_PATH, pathToMediaFile, media, new Callback<GeneralResponse<String>>() {
+        RESTUtil.uploadMedia(AppState.BASE_URL, AppState.INITIAL_PATH+"/media", pathToMediaFile, "video", media, new Callback<GeneralResponse<String>>() {
             @Override
             public void onResponse(Call<GeneralResponse<String>> call, Response<GeneralResponse<String>> response) {
                 //Toast.makeText(getApplication(), response.message(), Toast.LENGTH_LONG).show();
@@ -232,7 +232,7 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
                 .build();
 
         MediaInterface mediaInterface = retrofit.create(MediaInterface.class);
-        Call<GeneralResponse<String>> serverCom = mediaInterface.uploadVideoToServer("upload", vFile, data, "");
+        Call<GeneralResponse<String>> serverCom = mediaInterface.uploadMediaToServer("upload", vFile, data, "");
 
         serverCom.enqueue(new Callback<GeneralResponse<String>>() {
             @Override
@@ -251,7 +251,7 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-    /*private void uploadVideoToServer(String pathToVideoFile) {
+    /*private void uploadMediaToServer(String pathToVideoFile) {
         File videoFile = new File(pathToVideoFile);
         RequestBody videoBody = RequestBody.create(MediaType.parse("video/*"), videoFile);
         MultipartBody.Part vFile = MultipartBody.Part.createFormData("media_file", videoFile.getName(), videoBody);
@@ -263,7 +263,7 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
                 .build();
 
         MediaInterface mediaInterface = retrofit.create(MediaInterface.class);
-        Call<ResultObject> serverCom = mediaInterface.uploadVideoToServer(vFile, data);
+        Call<ResultObject> serverCom = mediaInterface.uploadMediaToServer(vFile, data);
 
         serverCom.enqueue(new Callback<ResultObject>() {
             @Override
@@ -282,6 +282,7 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
     } */
 
     private void compressVideo(final String inPath, final String outPath, final OnCompressResult onCompressResult) {
+
         new Thread(new Runnable() {
             @Override
             public void run() {

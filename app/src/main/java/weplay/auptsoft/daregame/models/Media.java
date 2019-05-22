@@ -8,14 +8,16 @@ public class Media {
     private int id;
     private String name;
     private String url;
+    private String full_url;
     private String type; //can be 'audio', 'image' or 'video'
     private String description;
     private int owner_id;
-    private String owner_type;
+    private String owner_type;  //can be video, image or audio
+    private String media_source = "live"; //can be live or gallery
     private String file_name;
+    private String extra;   //when used with 'challenge' as owner_type, it must be 'challenger' or 'challenged'
     private String create_at;
     private String update_at;
-    private String extra;   //when used with 'challenge' as owner_type, it must be 'challenger' or 'challenged'
 
     private String localUrl;
 
@@ -84,12 +86,28 @@ public class Media {
         this.url = url;
     }
 
+    public String getFull_url() {
+        return full_url;
+    }
+
+    public void setFull_url(String full_url) {
+        this.full_url = full_url;
+    }
+
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getMedia_source() {
+        return media_source;
+    }
+
+    public void setMedia_source(String media_source) {
+        this.media_source = media_source;
     }
 
     public String getDescription() {

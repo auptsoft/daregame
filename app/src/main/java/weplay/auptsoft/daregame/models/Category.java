@@ -16,8 +16,10 @@ public class Category {
     private String created_at;
     private String updated_at;
 
+    public static int index = 0;
+
     public Category(String title, String description) {
-        this.id = 0;
+        this.id = index; index++;
         this.title = title;
         this.description = description;
         this.created_at = Utility.fromGregorianCalender(new GregorianCalendar());

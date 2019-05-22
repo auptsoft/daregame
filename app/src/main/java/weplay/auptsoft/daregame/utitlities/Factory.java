@@ -28,7 +28,7 @@ public class Factory {
     }
 
     public static void searchChallenges(ArrayList<RESTUtil.SearchQueryItem> searchQueryItems, final OnChallengeResponseListener onChallengeResponseListener) {
-        RESTUtil.search(AppState.BASE_URL, AppState.INITIAL_PATH + "/search", searchQueryItems, new Callback<ResponseBody>() {
+        RESTUtil.search(AppState.BASE_URL, AppState.INITIAL_PATH + "/challenge/search", searchQueryItems, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.message().equals("OK")) {
@@ -38,7 +38,7 @@ public class Factory {
                         PaginateResponse<Challenge> paginateResponse = new Gson().fromJson(jsonString, type);
                         onChallengeResponseListener.onChallengeResponse(paginateResponse);
                     } catch (Exception e) {
-                        onChallengeResponseListener.onError(e.getMessage(), e.getCause().getMessage());
+                        onChallengeResponseListener.onError(e.getMessage(), "");
                         e.printStackTrace();
                     }
                 } else {

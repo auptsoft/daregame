@@ -59,7 +59,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Username"
-                        android:inputType=""
+                        android:inputType="text"
                         android:text="@={userViewModel.user.username}"
                         android:afterTextChanged="@{()->userViewModel.validateUsername(userViewModel.user.username)}"/>
                 </android.support.design.widget.TextInputLayout>
@@ -136,7 +136,7 @@
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Login"
+                        android:text="Register"
                         android:elevation="10dp"
                         android:background="@drawable/button_style_unseleted"
                         android:onClick="@{()->userViewModel.register(userViewModel.user)}"

@@ -19,5 +19,5 @@ public interface MediaInterface {
     @Headers({"Accept:application/json"})
     @Multipart
     @POST("{urlPath}")
-    Call<GeneralResponse<String>> uploadVideoToServer(@Path(value="urlPath", encoded = true) String urlPath, @Part MultipartBody.Part file, @Part MultipartBody.Part data, @Header("Authorization") String access_token );
+    Call<GeneralResponse<String>> uploadMediaToServer(@Path(value="urlPath", encoded = true) String urlPath, @Part MultipartBody.Part file, @Part MultipartBody.Part data, @Header("Authorization") String access_token );
 }

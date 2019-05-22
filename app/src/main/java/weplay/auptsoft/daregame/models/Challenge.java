@@ -1,7 +1,7 @@
 package weplay.auptsoft.daregame.models;
 
-import org.w3c.dom.Comment;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -20,11 +20,13 @@ public class Challenge {
     private String description;
     private double price;
     private int category_id;
-    private String accept_type;
-    private String content_source;
+    private String accept_media_type;
+    private String request_media_type;
+    private String media_source;
     private String accepted_at;
     private String performed_at;
     private String max_acceptance_at;
+    private boolean free_attempt;
     private String created_at;
     private String updated_at;
 
@@ -48,6 +50,7 @@ public class Challenge {
                 "",
                 5.2,
                 1,
+                "image",
                 "image",
                 "live",
                 "0000-00-00 00:00:00",
@@ -91,11 +94,11 @@ public class Challenge {
         this.category_id = category_id;
         this.challenger_id = challenger.getId();
         this.challenged_id = challenged.getId();
-        this.challenger = challenger.getUsername();
-        this.challenged = challenged.getUsername();
+        this.challenger = challenger;
+        this.challenged = challenged;
     }
 
-    public Challenge(int id, int challenger_id, int challenged_id, String title, String description, double price, int category_id, String accept_type, String content_source, String accepted_at, String performed_at, String max_acceptance_at, String created_at, String updated_at /*, String challenger, String challenged */) {
+    public Challenge(int id, int challenger_id, int challenged_id, String title, String description, double price, int category_id, String accept_media_type, String request_media_type, String media_source, String accepted_at, String performed_at, String max_acceptance_at, String created_at, String updated_at /*, String challenger, String challenged */) {
         this.id = id;
         this.challenger_id = challenger_id;
         this.challenged_id = challenged_id;
@@ -103,8 +106,9 @@ public class Challenge {
         this.description = description;
         this.price = price;
         this.category_id = category_id;
-        this.accept_type = accept_type;
-        this.content_source = content_source;
+        this.accept_media_type = accept_media_type;
+        this.request_media_type = request_media_type;
+        this.media_source = media_source;
         this.accepted_at = accepted_at;
         this.performed_at = performed_at;
         this.max_acceptance_at = max_acceptance_at;
@@ -112,6 +116,16 @@ public class Challenge {
         this.updated_at = updated_at;
         //this.challenger = challenger;
         //this.challenged = challenged;
+
+        this.challenger = new User();
+        this.challenged = new User();
+
+        this.challenger_media = new ArrayList<>();
+        this.challenged_media = new ArrayList<>();
+        this.comments = new ArrayList<>();
+        this.likes = new ArrayList<>();
+        this.tags = new ArrayList<>();
+
     }
 
     public int getId() {
@@ -170,20 +184,28 @@ public class Challenge {
         this.category_id = category_id;
     }
 
-    public String getAccept_type() {
-        return accept_type;
+    public String getAccept_media_type() {
+        return accept_media_type;
     }
 
-    public void setAccept_type(String accept_type) {
-        this.accept_type = accept_type;
+    public void setAccept_media_type(String accept_media_type) {
+        this.accept_media_type = accept_media_type;
     }
 
-    public String getContent_source() {
-        return content_source;
+    public String getRequest_media_type() {
+        return request_media_type;
     }
 
-    public void setContent_source(String content_source) {
-        this.content_source = content_source;
+    public void setRequest_media_type(String request_media_type) {
+        this.request_media_type = request_media_type;
+    }
+
+    public String getMedia_source() {
+        return media_source;
+    }
+
+    public void setMedia_source(String media_source) {
+        this.media_source = media_source;
     }
 
     public String getAccepted_at() {
@@ -208,6 +230,14 @@ public class Challenge {
 
     public void setMax_acceptance_at(String max_acceptance_at) {
         this.max_acceptance_at = max_acceptance_at;
+    }
+
+    public boolean isFree_attempt() {
+        return free_attempt;
+    }
+
+    public void setFree_attempt(boolean free_attempt) {
+        this.free_attempt = free_attempt;
     }
 
     public String getCreated_at() {

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="presenter"
+            type="weplay.auptsoft.daregame.presenters.EmailVerificationActivityPresenter" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:SpinKit_Style="Pulse"
+            app:SpinKit_Color="@color/colorPrimary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+
+            android:visibility="@{presenter.loading ? View.VISIBLE : View.GONE}"
+            />
+
+        <WebView
+            android:id="@+id/main_webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{presenter.loading ? View.GONE : View.VISIBLE }">
+        </WebView>
+
+        <LinearLayout
+            android:id="@+id/error_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+
+            android:visibility="@{presenter.errorOccurred ? View.VISIBLE : View.GONE}"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="error occurred while connecting to network"/>
+            <Button
+                android:id="@+id/retry_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@android:style/Widget.Material.Button.Borderless.Colored"
+                android:text="RETRY"/>
+        </LinearLayout>
+
+        <com.github.florent37.shapeofview.shapes.CutCornerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            app:shape_cutCorner_bottomRightSize="50dp"
+            app:shape_cutCorner_topRightSize="10dp"
+            app:shape_cutCorner_bottomLeftSize="10dp"
+            app:shape_cutCorner_topLeftSize="10dp"
+
+            android:visibility="@{presenter.notVerified ? View.VISIBLE : View.GONE}">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#eee"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/verify_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="WELCOME! JUST A STEP."
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="Verification link has been sent to your email address. \n Open the link with this app to continue"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/verify_title" />
+
+                <TextView
+                    android:id="@+id/text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="If you do not receive an email after 15 minutes tap RESEND to send verification email again"
+                    android:textAlignment="center"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text1" />
+
+                <TextView
+                    android:id="@+id/text3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Note: Open the link with this app for easy verification"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text2" />
+
+
+                <Button
+                    android:id="@+id/resend_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Resend"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text3"
+                    style="@style/Widget.AppCompat.Button.Colored"/>
+
+
+            </android.support.constraint.ConstraintLayout>
+        </com.github.florent37.shapeofview.shapes.CutCornerView>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

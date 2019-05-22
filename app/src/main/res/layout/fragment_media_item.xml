@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="weplay.auptsoft.daregame.view_models.MediaViewModel" />
+    </data>
+
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+
+        android:id="@+id/shimmer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:auto_start="true"
+        app:shape="linear">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/audio_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:visibility="@{viewModel.audioViewVisible}"
+                app:cardCornerRadius="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:src="@drawable/ic_audiotrack_black_24dp"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/audio_playing_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="Loading..."
+                        android:layout_gravity="center"
+                        android:textSize="25sp"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <com.github.chrisbanes.photoview.PhotoView
+                android:id="@+id/photo_view"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:src="@drawable/green_gradient"
+                android:visibility="@{viewModel.imageViewVisible}" />
+
+            <VideoView
+                android:id="@+id/view_view"
+                android:layout_width="wrap_content"
+                android:layout_height="250dp"
+                android:visibility="@{viewModel.videoViewVisible}" />
+        </RelativeLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+</layout>

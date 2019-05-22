@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
+import android.net.Uri;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -29,6 +30,7 @@ import weplay.auptsoft.daregame.BR;
 import weplay.auptsoft.daregame.BuildConfig;
 import weplay.auptsoft.daregame.MainApplication;
 import weplay.auptsoft.daregame.R;
+import weplay.auptsoft.daregame.activities.EmailVerificationActivity;
 import weplay.auptsoft.daregame.activities.MainActivity;
 import weplay.auptsoft.daregame.fragments.LoginFragment;
 import weplay.auptsoft.daregame.fragments.RegisterFragment;
@@ -78,6 +80,12 @@ public class UserViewModel extends BaseObservable {
                     .addToBackStack("")
                     .commit();
         }
+    }
+
+    public void forgotPassword() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(AppState.BASE_URL+"daregame/public/password/reset"));
+        activity.startActivity(intent);
     }
 
     public void login(User user) {
@@ -186,7 +194,7 @@ public class UserViewModel extends BaseObservable {
         }
     }
 
-    public boolean validateUsername(User username) {
+    public boolean validateUsername(String username) {
         return true;
     }
 
@@ -318,15 +326,25 @@ public class UserViewModel extends BaseObservable {
                 //return;
                 try {
                     Type type = new TypeToken<GeneralResponse<User>>(){}.getType();
-                    GeneralResponse<User> userGeneralResponse = new Gson().fromJson(response.body().string(), type);
-                    Toasty.info(activity, response.message()).show();
+                    String stringInput = response.body().string();
+                    GeneralResponse<User> userGeneralResponse = new Gson().fromJson(stringInput, type);
+
                     if(userGeneralResponse.getMessage().equals("success")) {
                         if(((MainApplication)activity.getApplication()).loginUser(userGeneralResponse.getData())) {
                             ((MainApplication)activity.getApplication()).disableFirstTimeEvent();
                             Intent intent = new Intent(activity, MainActivity.class);
                             intent.putExtra(MainActivity.PAGE_NO_KEY, 0);
                             activity.startActivity(intent);
+                            activity.finish();
+                        }  else {
+                            String js = new Gson().toJson(userGeneralResponse.getData());
+                            Toasty.warning(activity, stringInput).show();
                         }
+                    } else if( userGeneralResponse.getMessage().equals("not_verified")) {
+                        Intent intent = new Intent(activity, EmailVerificationActivity.class);
+                        intent.putExtra(MainActivity.PAGE_NO_KEY, 0);
+                        activity.startActivity(intent);
+                        activity.finish();
                     } else {
                         Toasty.error(activity, userGeneralResponse.getMessage()+": "+userGeneralResponse.getData()).show();
                     }

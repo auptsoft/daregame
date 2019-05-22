@@ -8,14 +8,17 @@ public class User {
     private int id;
     private String name;
     private String email;
-    private User username;
+    private String username;
     private String password;
     private String country;
     private String birthday;
     private String gender;
+    private String bio;
     private String created_at;
     private String updated_at;
     private String profile_picture_url;
+
+    private UserDetails details;
 
     public User() {
         this(0, "", "", "", "", "", "", "", "");
@@ -67,11 +70,11 @@ public class User {
         this.email = email;
     }
 
-    public User getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUsername(User username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
@@ -129,5 +132,21 @@ public class User {
 
     public void setProfile_picture_url(String profile_picture_url) {
         this.profile_picture_url = profile_picture_url;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public UserDetails getDetails() {
+        return details;
+    }
+
+    public void setDetails(UserDetails details) {
+        this.details = details;
     }
 }

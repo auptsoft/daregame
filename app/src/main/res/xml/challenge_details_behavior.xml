@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        android:id="@+id/challenge_details_behaviour_transition"
+        app:constraintSetStart="@id/start"
+        app:constraintSetEnd="@id/end"
+        app:duration="1000">
+        <OnSwipe
+            app:touchAnchorId="@id/challenge_comments_recycler_view"
+            app:dragDirection="dragUp"
+            app:touchAnchorSide="top" />
+    </Transition>
+
+    <ConstraintSet
+        android:id="@+id/start">
+
+        <Constraint
+            android:id="@+id/challenge_curve_outline"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            app:layout_constraintTop_toTopOf="parent">
+            <CustomAttribute
+                app:attributeName="arcHeightDp"
+                app:customFloatValue="35" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/challenge_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/challenge_date_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/challenge_free_attempt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/challenge_price"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+        <Constraint
+            android:id="@+id/challenge_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/challenge_title"
+            />
+
+        <Constraint
+            android:id="@+id/challenge_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/challenge_title" />
+
+        <Constraint
+            android:id="@+id/challenger_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintTop_toBottomOf="@id/challenge_free_attempt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+        <Constraint
+            android:id="@+id/likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/challenge_title" />
+
+        <Constraint
+            android:id="@+id/dislikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            app:layout_constraintRight_toLeftOf="@id/likes"
+            app:layout_constraintTop_toBottomOf="@id/challenge_title"
+            />
+
+        <Constraint
+            android:id="@+id/challenger_media_frame"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/challenge_curve_outline"
+            />
+
+        <Constraint
+            android:id="@+id/challenge_description_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintTop_toBottomOf="@id/challenger_media_frame"
+            />
+
+        <Constraint
+            android:id="@+id/challenge_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:layout_constraintTop_toBottomOf="@id/challenge_description_title"
+            />
+
+        <Constraint
+            android:id="@+id/challenge_comment_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintTop_toBottomOf="@id/challenge_description"
+            />
+
+
+        <Constraint
+            android:id="@+id/challenge_comments_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintTop_toBottomOf="@id/challenge_comment_title"
+            />
+
+        <Constraint
+            android:id="@+id/attempt_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+    </ConstraintSet>
+
+    <ConstraintSet
+        android:id="@+id/end">
+        <Constraint
+            android:id="@+id/challenge_curve_outline"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            app:layout_constraintTop_toTopOf="parent">
+            <CustomAttribute
+                app:attributeName="arcHeightDp"
+                app:customFloatValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/challenge_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/challenge_date_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/challenge_free_attempt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <Constraint
+            android:id="@+id/challenge_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/challenge_title"
+            />
+
+        <Constraint
+            android:id="@+id/challenge_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/challenge_title" />
+
+        <Constraint
+            android:id="@+id/challenger_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintTop_toBottomOf="@id/challenge_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+        <Constraint
+            android:id="@+id/likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/challenge_title" />
+
+        <Constraint
+            android:id="@+id/dislikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            app:layout_constraintRight_toLeftOf="@id/likes"
+            app:layout_constraintTop_toBottomOf="@id/challenge_title"
+            />
+
+        <Constraint
+            android:id="@+id/challenger_media_frame"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            app:layout_constraintTop_toBottomOf="@id/challenge_curve_outline"
+            />
+
+        <Constraint
+            android:id="@+id/challenge_description_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintTop_toBottomOf="@id/challenger_media_frame"
+            />
+
+        <Constraint
+            android:id="@+id/challenge_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:layout_constraintTop_toBottomOf="@id/challenge_description_title"
+            />
+
+        <Constraint
+            android:id="@+id/challenge_comment_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintTop_toBottomOf="@id/challenge_description"
+            />
+
+
+        <Constraint
+            android:id="@+id/challenge_comments_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintTop_toBottomOf="@id/challenge_comment_title"
+            />
+
+        <Constraint
+            android:id="@+id/attempt_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+
+    </ConstraintSet>
+
+</MotionScene>

@@ -1,9 +1,13 @@
 package weplay.auptsoft.daregame.services;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.DialogFragment;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import javax.security.auth.callback.Callback;
+import weplay.auptsoft.daregame.activities.WebActivity;
 
 /**
  * Created by Andrew on 15.3.19.
@@ -54,4 +58,13 @@ public class Utility {
                 ':' +
                 seconds;
     }
+
+    public static void useWebView(Context context, String url, String method, String data) {
+        Intent intent = new Intent(context, WebActivity.class);
+        intent.putExtra("data", data);
+        intent.putExtra("url", url);
+        intent.putExtra("method", method);
+        context.startActivity(intent);
+    }
+
 }

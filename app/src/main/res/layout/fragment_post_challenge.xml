@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="java.lang.String" />
+        <variable
+            name="viewModel"
+            type="weplay.auptsoft.daregame.view_models.ChallengeViewModel" />
+    </data>
+
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical">
+       <!-- <LinearLayout
+           android:id="@+id/page_title"
+           android:layout_width="match_parent"
+           android:layout_height="?attr/actionBarSize"
+           android:background="@color/colorPrimary"
+           android:gravity="center"
+           android:elevation="5dp">
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Create New Challenge"
+               android:layout_marginLeft="20dp"
+               android:textSize="20sp"
+               android:textStyle="bold"
+               android:textColor="#fff"
+               />
+       </LinearLayout> -->
+       <ScrollView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <android.support.constraint.ConstraintLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               >
+               <android.support.design.widget.TextInputLayout
+                   android:id="@+id/title_edit_layout"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="20dp"
+                   android:layout_marginRight="10dp"
+                   android:layout_marginLeft="10dp"
+                   app:layout_constraintTop_toTopOf="parent"
+                   app:counterEnabled="true"
+                   app:counterMaxLength="40">
+
+                   <android.support.design.widget.TextInputEditText
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:hint="Challenge Title"
+                       android:text="@={viewModel.challenge.title}" />
+               </android.support.design.widget.TextInputLayout>
+
+               <android.support.design.widget.TextInputLayout
+                   android:id="@+id/description_edit_layout"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginRight="10dp"
+                   android:layout_marginLeft="10dp"
+                   app:layout_constraintTop_toBottomOf="@id/title_edit_layout"
+                   app:counterEnabled="true"
+                   app:counterMaxLength="200">
+
+                   <android.support.design.widget.TextInputEditText
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:lines="4"
+                       android:hint="Description"
+                       android:text="@={viewModel.challenge.description}">
+                   </android.support.design.widget.TextInputEditText>
+               </android.support.design.widget.TextInputLayout>
+
+               <LinearLayout
+                   android:id="@+id/category_select"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   app:layout_constraintTop_toBottomOf="@id/description_edit_layout"
+                   app:layout_constraintRight_toRightOf="parent"
+                   app:layout_constraintLeft_toLeftOf="parent"
+                   android:orientation="vertical"
+                   android:gravity="center">
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_margin="5dp"
+                       android:textSize="20sp"
+                       android:text="Category"
+
+                       />
+                   <com.github.florent37.shapeofview.shapes.BubbleView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       app:shape_bubble_arrowPosition="top"
+                       app:shape_bubble_borderRadius="18dp">
+                       <LinearLayout
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:gravity="center"
+                           android:background="#ccc">
+                           <Spinner
+                               android:id="@+id/challenge_select_category"
+                               android:layout_width="wrap_content"
+                               android:layout_height="50dp"
+                               android:layout_marginTop="10dp"
+                               android:layout_marginBottom="5dp"
+                               android:layout_marginLeft="5dp"
+                               android:layout_marginRight="5dp"
+                               >
+                           </Spinner>
+                       </LinearLayout>
+                   </com.github.florent37.shapeofview.shapes.BubbleView>
+               </LinearLayout>
+
+               <com.github.florent37.shapeofview.shapes.CutCornerView
+                   android:id="@+id/media_type_select"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="10dp"
+                   app:layout_constraintTop_toBottomOf="@id/category_select"
+                   app:shape_cutCorner_bottomRightSize="40dp"
+                   android:elevation="5dp"
+                   >
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       android:paddingLeft="20dp"
+
+                       android:background="#eee">
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Select Media type"
+                           android:layout_marginTop="10dp"
+                           android:layout_marginBottom="5dp"
+                           android:textColor="@color/colorPrimary"/>
+                       <RadioGroup
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:orientation="horizontal"
+                           >
+
+                           <RadioButton
+                               android:layout_width="wrap_content"
+                               android:layout_height="match_parent"
+                               android:text="Video"
+                               android:layout_margin="10dp"
+                               android:checked="@={viewModel.videoType}">
+                           </RadioButton>
+
+                           <RadioButton
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="Image"
+                               android:layout_margin="10dp"
+                               android:checked="@={viewModel.imageType}">
+                           </RadioButton>
+
+                           <RadioButton
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="Audio"
+                               android:layout_margin="10dp"
+                               android:checked="@={viewModel.audioType}"/>
+
+                       </RadioGroup>
+                   </LinearLayout>
+
+               </com.github.florent37.shapeofview.shapes.CutCornerView>
+
+               <com.github.florent37.shapeofview.shapes.CutCornerView
+                   android:id="@+id/media_source_select"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="10dp"
+                   app:layout_constraintTop_toBottomOf="@+id/media_type_select"
+                   app:shape_cutCorner_bottomRightSize="40dp"
+                   android:elevation="5dp"
+                   >
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:orientation="vertical"
+                       android:paddingLeft="20dp"
+                       android:background="#eee">
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Select Media Source"
+                           android:layout_marginTop="10dp"
+                           android:layout_marginBottom="5dp"
+                           android:textColor="@color/colorPrimary"/>
+                       <RadioGroup
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Choose content Type"
+                           android:orientation="horizontal">
+
+                           <RadioButton
+                               android:layout_width="wrap_content"
+                               android:layout_height="match_parent"
+                               android:text="Live"
+                               android:layout_margin="10dp"
+                               android:checked="@={viewModel.liveSource}">
+                           </RadioButton>
+
+                           <RadioButton
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="From Gallery"
+                               android:layout_margin="10dp"
+                               android:checked="@={viewModel.gallerySource}">
+                           </RadioButton>
+
+
+                       </RadioGroup>
+                   </LinearLayout>
+
+               </com.github.florent37.shapeofview.shapes.CutCornerView>
+
+               <CheckBox
+                   android:id="@+id/free_attempt_check"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="10dp"
+                   android:layout_marginLeft="10dp"
+                   app:layout_constraintTop_toBottomOf="@id/media_source_select"
+                   app:layout_constraintLeft_toLeftOf="parent"
+                   android:text="Free Attempt"
+                   android:checked="@={viewModel.freeAttempt}"/>
+
+               <LinearLayout
+                   android:id="@+id/price_layout"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   app:layout_constraintTop_toBottomOf="@id/free_attempt_check"
+                   app:layout_constraintLeft_toLeftOf="parent"
+                   app:layout_constraintRight_toRightOf="parent"
+                   android:gravity="center"
+                   >
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textSize="30dp"
+                       android:text="$"/>
+                   <com.github.florent37.shapeofview.shapes.BubbleView
+                       android:layout_width="100dp"
+                       android:layout_height="70dp"
+                       app:shape_bubble_arrowPosition="left"
+                       app:shape_bubble_borderRadius="20dp"
+                       >
+                       <LinearLayout
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:background="#ccc"
+                           android:gravity="center">
+                           <EditText
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:layout_marginLeft="20dp"
+                               android:layout_marginRight="10dp"
+                               android:textSize="25sp"
+                               android:background="#fff"
+                               android:text="@={``+viewModel.challenge.price}"/>
+                       </LinearLayout>
+                   </com.github.florent37.shapeofview.shapes.BubbleView>
+               </LinearLayout>
+
+               <com.github.florent37.shapeofview.shapes.CutCornerView
+                   android:id="@+id/tags_select"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="10dp"
+                   app:layout_constraintTop_toBottomOf="@id/price_layout"
+                   app:shape_cutCorner_bottomRightSize="40dp"
+                   android:elevation="5dp"
+                   >
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       android:paddingLeft="20dp"
+
+                       android:background="#eee">
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Tags"
+                           android:layout_marginTop="10dp"
+                           android:layout_marginBottom="5dp"
+                           android:textColor="@color/colorPrimary"/>
+                       <ImageView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content" />
+                       <!--<RadioGroup
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Choose content Type"
+                           android:orientation="horizontal">
+
+                           <RadioButton
+                               android:layout_width="wrap_content"
+                               android:layout_height="match_parent"
+                               android:text="Video"
+                               android:layout_margin="10dp">
+                           </RadioButton>
+
+                           <RadioButton
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="Image"
+                               android:layout_margin="10dp">
+                           </RadioButton>
+
+                           <RadioButton
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="Audio"
+                               android:layout_margin="10dp"/>
+
+                       </RadioGroup> -->
+                   </LinearLayout>
+
+               </com.github.florent37.shapeofview.shapes.CutCornerView>
+
+               <com.github.florent37.shapeofview.shapes.CutCornerView
+                   android:layout_width="wrap_content"
+                   android:layout_height="40dp"
+                   app:layout_constraintTop_toBottomOf="@id/tags_select"
+                   app:layout_constraintLeft_toLeftOf="parent"
+                   app:layout_constraintRight_toRightOf="parent"
+                   app:shape_cutCorner_topRightSize="20dp"
+                   app:shape_cutCorner_bottomRightSize="20dp"
+                   app:shape_cutCorner_bottomLeftSize="5dp"
+                   app:shape_cutCorner_topLeftSize="5dp"
+                   android:layout_marginTop="20dp"
+                   android:layout_marginBottom="20dp"
+                   android:elevation="5dp"
+                   android:visibility="gone"
+                   >
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:background="@color/colorPrimary"
+                       android:gravity="center"
+
+                       android:onClick="@{()->viewModel.uploadMedia()}">
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Upload Media"
+                           android:textSize="18sp"
+                           android:textStyle="bold"
+                           android:textColor="#fff"
+                           android:paddingRight="20dp"
+                           android:paddingLeft="10dp"
+                           android:layout_gravity="center"/>
+
+                   </LinearLayout>
+
+               </com.github.florent37.shapeofview.shapes.CutCornerView>
+           </android.support.constraint.ConstraintLayout>
+       </ScrollView>
+
+   </LinearLayout>
+</layout>

@@ -1,28 +1,349 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <data>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="presenter"
+            type="weplay.auptsoft.daregame.presenters.ChallengeDetailsPresenter" />
+
+        <variable
+            name="item"
+            type="weplay.auptsoft.daregame.view_models.ChallengeViewModel" />
     </data>
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:transitionName="@string/challenge_transition_1">
 
-        <RelativeLayout
+        <FrameLayout
+            android:id="@+id/challenger_media_frame"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
-            <com.github.chrisbanes.photoview.PhotoView
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+
+
+            >
+            <!--<ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/example_pic"
+                    android:scaleType="centerCrop"
+                    /> -->
+        </FrameLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/challenger_media_frame">
+            <android.support.constraint.ConstraintLayout
+
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </RelativeLayout>
+                android:layout_height="match_parent"
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                >
 
 
+                <com.github.florent37.shapeofview.shapes.ArcView
+                    android:id="@+id/challenge_curve_outline"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:elevation="10dp"
+                    app:shape_arc_cropDirection="outside"
+                    app:shape_arc_height="35dp"
+                    app:shape_arc_position="bottom">
 
-        </LinearLayout>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#eee">
+                    </FrameLayout>
+                </com.github.florent37.shapeofview.shapes.ArcView>
 
+                <TextView
+                    android:id="@+id/challenge_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@{item.challenge.title}"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:elevation="11dp"/>
+
+                <TextView
+                    android:id="@+id/challenge_free_attempt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textColor="#00cc00"
+
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_price"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:text="Free attempt"
+                    android:elevation="11dp"/>
+
+                <com.github.florent37.shapeofview.shapes.RoundRectView
+                    android:id="@+id/attempt_now"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+
+                    app:layout_constraintTop_toBottomOf="@id/challenge_free_attempt"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+
+                    app:shape_roundRect_bottomLeftRadius="12dp"
+                    app:shape_roundRect_topRightRadius="3dp"
+                    app:shape_roundRect_bottomRightRadius="12dp"
+                    app:shape_roundRect_topLeftRadius="3dp"
+                    android:elevation="10dp"
+                    android:onClick="@{()->presenter.attemptNow()}"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:background="@color/colorPrimary">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{item.challenge.challenged_id==0 ? `Attempt Now` : `View Attempt` }"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="#fff"/>
+                    </LinearLayout>
+                </com.github.florent37.shapeofview.shapes.RoundRectView>
+
+                <TextView
+                    android:id="@+id/challenge_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_title"
+                    android:visibility="visible"
+                    android:elevation="11dp"
+                    android:text="@{item.challenge.category.title}"
+                    />
+
+                <TextView
+                    android:id="@+id/challenge_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_title"
+                    android:elevation="11dp"
+                    android:text="@{`$`+item.challenge.price}"/>
+
+                <LinearLayout
+                    android:id="@+id/challenger_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_category"
+                    app:layout_constraintLeft_toLeftOf="parent"
+
+
+                    android:elevation="11dp"
+                    >
+                    <com.github.florent37.shapeofview.shapes.CircleView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="11dp">
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/ic_person_outline_black_24dp"/>
+                    </com.github.florent37.shapeofview.shapes.CircleView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="18sp"
+                        android:text="@{item.challenge.challenger.username}"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/likes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    app:layout_goneMarginBottom="30dp"
+                    android:gravity="top"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_title"
+                    android:elevation="11dp"
+                    android:visibility="@{presenter.likeActionLoading ? View.GONE : View.VISIBLE}">
+
+                    <ImageView
+                        android:id="@+id/like_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="@{presenter.liked}" />
+
+                    <TextView
+                        android:id="@+id/like_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{``+item.challenge.likes.size()}" />
+
+                </LinearLayout>
+
+                <com.github.ybq.android.spinkit.SpinKitView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="10dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_title"
+                    app:SpinKit_Style="Circle"
+                    app:SpinKit_Color="@color/colorAccent"
+                    android:elevation="11dp"
+                    android:visibility="@{presenter.likeActionLoading ? View.VISIBLE : View.GONE}"/>
+
+                <LinearLayout
+                    android:id="@+id/dislikes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:gravity="top"
+                    app:layout_constraintRight_toLeftOf="@id/likes"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_title"
+                    android:elevation="11dp"
+                    android:visibility="gone"
+                    >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_thumb_down_black_24dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/challenge_date_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_price"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:textColor="@color/colorPrimary"
+                    android:visibility="visible"
+                    android:text="2019-4-5 8:22"
+                    android:elevation="11dp"/>
+
+
+                <TextView
+                    android:id="@+id/challenge_description_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_curve_outline"
+                    android:text="Description"
+                    android:textStyle="bold"
+                    android:textSize="20dp"/>
+
+                <TextView
+                    android:id="@+id/challenge_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_description_title"
+                    android:text="@{item.challenge.description}"/>
+
+                <TextView
+                    android:id="@+id/challenge_comment_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_description"
+                    android:text="Comments"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/challenge_comments_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_comment_title"
+
+                    >
+
+                </android.support.v7.widget.RecyclerView>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/new_comment_edit_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_comments_recycler_view"
+                    app:layout_constraintRight_toLeftOf="@id/post_comment_action"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:counterEnabled="true"
+                    android:background="#efefef">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/new_comment_input_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:hint="Your Comment"
+                        >
+                    </android.support.design.widget.TextInputEditText>
+                </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:id="@+id/post_comment_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/challenge_comments_recycler_view"
+                    app:layout_constraintRight_toRightOf="parent"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:text="Post"
+                    android:visibility="@{presenter.commentPostLoading?View.GONE:View.VISIBLE}"/>
+
+                <com.github.ybq.android.spinkit.SpinKitView
+                    android:id="@+id/post_comment_loading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="35dp"
+
+                    app:layout_constraintTop_toBottomOf="@id/new_comment_edit_layout"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:SpinKit_Style="Circle"
+                    app:SpinKit_Color="@color/colorAccent"
+                    android:visibility="@{presenter.commentPostLoading?View.VISIBLE:View.GONE}"
+                    />
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v4.widget.NestedScrollView>
     </RelativeLayout>
+
+
 </layout>

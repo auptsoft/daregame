@@ -9,21 +9,87 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:animateLayoutChanges="true">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/challenges_list_recycler_view"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent">
 
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/recycler_view_shimmer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:auto_start="true"
-            >
-        </com.facebook.shimmer.ShimmerFrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/recycler_view_shimmer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:duration="500"
+                    app:auto_start="true"
+
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <include layout="@layout/sample_item_challenge_wide" />
+                        <include layout="@layout/sample_item_challenge_wide" />
+
+                    </LinearLayout>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <android.support.v4.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/challenges_list_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/challenges_list_recycler_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        </android.support.v7.widget.RecyclerView>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v4.widget.NestedScrollView>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/challenge_list_failed_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                    <Button
+                        android:id="@+id/challenge_list_refresh_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:text="Refresh"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toTopOf="@id/challenge_list_refresh_btn"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:textAlignment="center"
+                        android:layout_margin="5dp"
+                        android:padding="20dp"
+                        android:text="@{presenter.failedText}" />
+                </android.support.constraint.ConstraintLayout>
+            </FrameLayout>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
 
         <!--<RelativeLayout
             android:layout_width="match_parent"
