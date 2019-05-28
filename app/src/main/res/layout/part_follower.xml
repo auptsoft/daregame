@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/follower_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <com.github.florent37.shapeofview.shapes.CircleView
+        android:id="@+id/follower"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="3dp"
+            android:src="@drawable/user_img" />
+    </com.github.florent37.shapeofview.shapes.CircleView>
+
+    <TextView
+        android:id="@+id/follower_name"
+        android:background="333366"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="7dp"
+        android:layout_toRightOf="@id/follower"
+        android:text="Andrew James"
+        android:textColor="#333366"/>
+
+    <ImageView
+        android:src="@drawable/ic_flag"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/follower_name"
+        android:layout_marginLeft="9dp"
+        android:layout_toRightOf="@id/follower" />
+
+    <Button
+        android:background="@drawable/button_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginVertical="20dp"
+        android:paddingHorizontal="20dp"
+        android:text="follow  "
+        android:textColor="#ffffff"
+        android:textAllCaps="false"
+        android:drawableRight="@drawable/ic_person_add_black_24dp" />
+
+</RelativeLayout>
+
